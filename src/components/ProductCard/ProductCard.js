@@ -12,48 +12,53 @@ import Rating from '@material-ui/lab/Rating';
 import list from '../../data/list.json'
 const useStyles = makeStyles({
     card: {
-        maxWidth: 245,
-        maxHeight: 345
+        maxWidth: 345,
+        maxHeight: 420
     },
 });
 
-
-
 function Product(props) {
     const classes = useStyles();
+    
+    const weekDiff = function diff_weeks(dt1) {
+        let currentDate = new Date();
+        let diff = (currentDate.getTime() - dt1.getTime()) / 1000;
+        diff /= (60 * 60 * 24 * 7);
+        return Math.abs(Math.round(diff));
+
+    }
+
+    let price=props.price
+    price=price.toFixed(2);
+    let a=price.toLocaleString('en', {useGrouping:true});
+    console.log(a);
 
     return (
-        <div className=" col-lg-3">
+        <div className=" col-lg-3" key={props.id}>
             <Card className={classes.card}>
                 <CardActionArea>
                     <CardMedia
                         component="img"
                         alt={props.id}
-                        height="140"
-                        image={props.img}
+                        height="240"
+                        image={props.src}
 
                     />
-                    <CardContent >
-                        <Typography gutterBottom component="p">
+                    <CardContent>
+                        <Typography  component="p" >
                             {props.title}
                         </Typography>
 
-                    </CardContent>
 
-                    <CardActions>
-                        <Box component="fieldset" mb={3} borderColor="transparent">
-                            <Typography component="p">2 weeks ago</Typography>
-                            <Rating name="read-only" value={props.vote} readOnly />
-                            <Typography component="p"></Typography>
-                            <h4> &#3647; {props.price}</h4>
-                        </Box>
-                    </CardActions>
-                    <CardActions>
                         <Box component="fieldset" mb={1} borderColor="transparent">
-
-
+                            <Typography component="p">{weekDiff(new Date(props.created_at))} weeks ago</Typography>
+                            <Rating name="read-only" value={props.vote} readOnly />
+                            <CardActions>
+                                <h5>&#3647;{price}</h5>
+                            </CardActions>
                         </Box>
-                    </CardActions>
+                    </CardContent>
+                    
 
                 </CardActionArea>
             </Card>
@@ -62,9 +67,11 @@ function Product(props) {
     );
 }
 const productCard = list.map((list) => <Product
+    key={list.id}
     id={list.id}
     title={list.title}
-    img={list.img_url}
+    src={list.image_url + list.id}
+    created_at={list.created_at}
     vote={list.vote}
     price={list.price} />);
 
