@@ -90,7 +90,7 @@ export default class ProductCard extends React.Component {
       <div>
         <br />
         <div>
-          <p>Item 1-12 of 23</p>
+          <p>Items 1-12 of 23</p>
         </div>
         <br />
         <div className="row">{productCard}</div>
