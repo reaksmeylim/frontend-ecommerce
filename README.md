@@ -7,6 +7,7 @@ This web app is compatible in multiple browsers: Chrome, Firefox, Edge and IE11.
 ### Installation
 
 After cloning this project, run the following commands
+##### make sure you run npm install
 
 ```sh
 $ cd frontend-ecommerce
